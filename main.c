@@ -27,6 +27,7 @@ int main() {
     for (int j = 0; j < n; ++j) {
         res = res + (a[j] * b[j]);
     }
+    printf("////////////////////////////////////////////////////\n");
     printf("Das Skalarprodukt ist %i", res);
     free(a);
     free(b);
