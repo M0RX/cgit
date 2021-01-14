@@ -1,35 +1,31 @@
 #include <stdio.h>
-#include <malloc.h>
+#include "jobQueue.h"
+
 
 int main() {
-    unsigned int res, n;
-    double *a, *b;
-
-    do {
-        printf("Dimension: ");
-        scanf("%i", &n);
-    } while (n < 1);
-
-
-    a = (double*) malloc(n*sizeof(double));
-    b = (double*) malloc(n*sizeof(double));
-    printf("////////////////////////////////////////////////////\n");
-    for (int j = 0; j < n; ++j) {
-        printf("Gib die %i Dimension für den Vektor a an: ", j);
-        scanf("%lf", &a[j]);
-    }
-    printf("////////////////////////////////////////////////////\n");
-    for (int j = 0; j < n; ++j) {
-        printf("Gib die %i Dimension für den Vektor b an: ", j);
-        scanf("%lf", &b[j]);
-    }
-    res = 0;
-    for (int j = 0; j < n; ++j) {
-        res = res + (a[j] * b[j]);
-    }
-    printf("////////////////////////////////////////////////////\n");
-    printf("Das Skalarprodukt ist %i", res);
-    free(a);
-    free(b);
-    return 0;
+    JobQueue_t queue1 = {0};
+    JobQueue_t queue2 = {0};
+    job_t arbeitslos = {
+            1,
+            "Arbeitlos"
+    };
+    job_t prof = {
+            10,
+            "Professor"
+    };
+    job_t student = {
+            1000,
+            "Student"
+    };
+    job_t businessman = {
+            12,
+            "Geschäftsmann"
+    };
+    pushJQ(&queue1, &businessman);
+    pushJQ(&queue2, &student);
+    pushJQ(&queue1, &prof);
+    job_t a = popJQ(&queue1);
+    pushJQ(&queue2, &a);
+    printJQ(&queue1);
+    printJQ(&queue2);
 }
