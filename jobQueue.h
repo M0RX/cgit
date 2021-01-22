@@ -24,5 +24,9 @@ job_t popJQ (JobQueue_t *pJQ);
 
 void printJQ (JobQueue_t *pJQ);
 
+int readFromFile(JobQueue_t *pJQ);
+
+int writeToFile(JobQueue_t *pJQ);
+
 #endif //CGIT_JOBQUEUE_H
 

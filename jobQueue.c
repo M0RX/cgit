@@ -11,7 +11,6 @@ int pushJQ (JobQueue_t *pJQ, const job_t *pJob) {
     }
 
     newElement->job = *pJob;
-
     if (++ pJQ->count == 1) {
         pJQ->first = pJQ->last = newElement;
     } else {
@@ -36,7 +35,6 @@ int pushJQ (JobQueue_t *pJQ, const job_t *pJob) {
 
 job_t popJQ (JobQueue_t *pJQ) {
     job_t result = {0};
-
     if (pJQ->first != NULL) {
         QueueEl_t *element = pJQ->first;
         result = element->job;
@@ -62,5 +60,35 @@ void printJQ (JobQueue_t *pJQ) {
             printf("v\n");
         }
     }
-
 }
+int exp(int basis, int expo) {
+    int result = 1;
+    for (int i = 0; i < expo; ++i) {
+        result = result * basis;
+    }
+    return  result;
+}
+int readFromFile(JobQueue_t *pJQ) {
+    FILE *ptr;
+    ptr = fopen("C:\\Users\\Moritz\\CLionProjects\\cgit\\cmake-build-debug\\test.txt", "r");
+    job_t *newElement = calloc(1, sizeof(job_t));
+    while (fscanf(ptr, "%d;%s", &newElement->priority, newElement->description) != EOF) {
+        pushJQ(pJQ, newElement);
+        newElement = calloc(1, sizeof(job_t));
+    }
+    printJQ(pJQ);
+}
+
+int writeToFile(JobQueue_t *pJQ) {
+    if (pJQ->first == NULL) {
+        printf("Es sind keine Elemente in der Schlange enthalten\n");
+    } else {
+        FILE *ptr;
+        ptr = fopen("C:\\Users\\Moritz\\CLionProjects\\cgit\\cmake-build-debug\\test.txt", "w");
+        QueueEl_t * q = pJQ->first;
+        for ( ; q != NULL; q = q->next) {
+            fprintf(ptr, "%d;%s\n", q->job.priority, q->job.description);
+        }
+    }
+}
+

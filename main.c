@@ -1,10 +1,18 @@
 #include <stdio.h>
 #include "jobQueue.h"
 
+int fac(int i) {
+    if (i == 1) {
+        return 1;
+    }
+    return i + fac(i-1);
+}
+
 
 int main() {
     JobQueue_t queue1 = {0};
     JobQueue_t queue2 = {0};
+    readFromFile(&queue1);
     job_t arbeitslos = {
             1,
             "Arbeitlos"
@@ -26,6 +34,6 @@ int main() {
     pushJQ(&queue1, &prof);
     job_t a = popJQ(&queue1);
     pushJQ(&queue2, &a);
-    printJQ(&queue1);
-    printJQ(&queue2);
+    writeToFile(&queue1);
+    return 0;
 }
