@@ -1,39 +1,35 @@
 #include <stdio.h>
-#include "jobQueue.h"
-
-int fac(int i) {
-    if (i == 1) {
-        return 1;
-    }
-    return i + fac(i-1);
-}
+#include <stdlib.h>
+#include <time.h>
 
 
 int main() {
-    JobQueue_t queue1 = {0};
-    JobQueue_t queue2 = {0};
-    readFromFile(&queue1);
-    job_t arbeitslos = {
-            1,
-            "Arbeitlos"
-    };
-    job_t prof = {
-            10,
-            "Professor"
-    };
-    job_t student = {
-            1000,
-            "Student"
-    };
-    job_t businessman = {
-            12,
-            "Geschäftsmann"
-    };
-    pushJQ(&queue1, &businessman);
-    pushJQ(&queue2, &student);
-    pushJQ(&queue1, &prof);
-    job_t a = popJQ(&queue1);
-    pushJQ(&queue2, &a);
-    writeToFile(&queue1);
+    time_t sec;
+    sec = time(NULL);
+    srand(sec);
+    int game = 1;
+    do {
+        printf("Willkommen.\n");
+        int random = rand() % 15;
+        random++;
+        int tries = 0;
+        int input;
+        do {
+            printf("Gib bitte eine Zahl ein du Hurensohn: \n");
+            scanf("%d", &input);
+            if (input > random) {
+                printf("Die eingegebene Zahl war zu groß!\n");
+            } else if (input < random) {
+                printf("Die eingegebene Zahl war zu klein!\n");
+            } else {
+                printf("Du hast gewonnen!");
+                tries = 4;
+            }
+            tries++;
+        } while (tries < 3);
+        printf("Möchtest du nochmal spielen? 0 = Nein, 1 = Ja\n");
+        scanf("%d", &game);
+    } while (game > 0);
+
     return 0;
 }
